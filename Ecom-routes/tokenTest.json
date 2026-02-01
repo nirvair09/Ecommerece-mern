@@ -1,0 +1,24 @@
+{
+  "name": "tokenTest",
+  "request": {
+    "type": "http",
+    "url": "http://localhost:5000/auth/me",
+    "scripts": {
+      "preRequest": "",
+      "postResponse": ""
+    },
+    "method": "GET",
+    "queryParams": [],
+    "headers": [],
+    "contentType": "text/plain",
+    "auth": {
+      "currentAuthType": "BEARER_TOKEN",
+      "authConfigStore": {
+        "BEARER_TOKEN": {
+          "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5N2VlY2NiYzMwNmFmNDc0ZTQ0YTJmOCIsImlhdCI6MTc2OTkyNTk1MywiZXhwIjoxNzcwNTMwNzUzfQ.VV6LL25TGjZuOjboxZ_kevbCILnanvUNPv0chNUQHQo"
+        }
+      }
+    },
+    "pathVariables": []
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "registerUser",
+  "request": {
+    "type": "http",
+    "url": "http://localhost:5000/auth/register",
+    "scripts": {
+      "preRequest": "",
+      "postResponse": ""
+    },
+    "method": "POST",
+    "queryParams": [],
+    "headers": [],
+    "body": "{\n  \"name\": \"Rup1\",\n  \"email\": \"rup1@test.com\",\n  \"password\": \"123456\",\n}",
+    "contentType": "application/json",
+    "auth": {
+      "currentAuthType": "INHERIT",
+      "authConfigStore": {}
+    },
+    "pathVariables": []
+  }
+}
