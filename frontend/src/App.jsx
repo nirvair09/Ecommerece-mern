@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import { useAuth } from "./context/AuthContext";
 import Products from "./pages/Products";
 import AddProducts from "./pages/AddProducts";
+import Cart from "./pages/Cart";
 
 export default function App() {
   const { user, loading } = useAuth();
@@ -19,6 +20,7 @@ export default function App() {
       <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="login" />} />
       <Route path="/products" element={<Products />} />
       <Route path="/add-product" element={<AddProducts />} />
+      <Route path="/cart" element={user ? <Cart /> : <Navigate to="/login" />} />
     </Routes>
   );
 };

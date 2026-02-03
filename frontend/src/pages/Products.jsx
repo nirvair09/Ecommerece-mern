@@ -1,7 +1,9 @@
 import { useEffect } from "react";
-
+import { useAuth } from "../context/AuthContext";
 export default function Products() {
     const [products, setProducts] = useState([]);
+
+    const { user } = useAuth();
 
     useEffect(() => {
         api.get("products")
@@ -21,6 +23,25 @@ export default function Products() {
                     <p>{p.price}</p>
                     <p>{p.quantity}</p>
                     <p>{p.seller}</p>
+
+                    {user && user.role === "customer" && (
+                        <button
+                            onClick={async () => {
+                                const token = localStorage.getItem("token");
+
+                                await api.post(
+                                    "/cart/add",
+                                    { productId: p._id, quantity: 1 },
+                                    {
+                                        headers: {
+                                            Authorization: `Bearer ${token}`
+                                        }
+                                    }
+                                )
+                            }}
+
+                        >Add to Cart</button>
+                    )}
                 </div>
             ))}
         </div>
