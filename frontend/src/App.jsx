@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import { useAuth } from "./context/AuthContext";
 import Products from "./pages/Products";
+import AddProducts from "./pages/AddProducts";
 
 export default function App() {
   const { user, loading } = useAuth();
@@ -17,6 +18,7 @@ export default function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="login" />} />
       <Route path="/products" element={<Products />} />
+      <Route path="/add-product" element={<AddProducts />} />
     </Routes>
   );
 };
