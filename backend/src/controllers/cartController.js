@@ -1,4 +1,5 @@
-import Cart from "../models/Cart";
+import Cart from "../models/Cart.js";
+import Product from "../models/Product.js";
 
 const getOrCreateCart = async (userId) => {
     let cart = await Cart.findOne({ user: userId })
