@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import { useAuth } from "./context/AuthContext";
+import Products from "./pages/Products";
 
 export default function App() {
   const { user, loading } = useAuth();
@@ -15,6 +16,7 @@ export default function App() {
       <Route path="/login" element={!user ? <Login /> : <Navigate to="/dashboard" />} />
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="login" />} />
+      <Route path="/products" element={<Products />} />
     </Routes>
   );
 };
