@@ -21,20 +21,24 @@ const Register = () => {
         navigate("/dashboard");
     }
     return (
-        <form onSubmit={handleFormSubmit}>
-            <h2>Register Form</h2>
-            <input placeholder="name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
+        <div>
 
-            <input placeholder="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
+            <form onSubmit={handleFormSubmit}>
+                <h2>Register Form</h2>
+                <input placeholder="name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
 
-            <input placeholder="password" value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} />
-            <select value={form.role} onChange={e => setForm({ ...form, role: e.target.value })}>
-                <option value="customer">Customer</option>
-                <option value="seller">Seller</option>
-            </select>
-            <button type="submit" >Register</button>
+                <input placeholder="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
 
-        </form>
+                <input placeholder="password" value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} />
+                <select value={form.role} onChange={e => setForm({ ...form, role: e.target.value })}>
+                    <option value="customer">Customer</option>
+                    <option value="seller">Seller</option>
+                </select>
+                <button type="submit" >Register</button>
+
+            </form>
+            <p>Already have an account?<a href="/login">Login Now</a></p>
+        </div>
     );
 
 }

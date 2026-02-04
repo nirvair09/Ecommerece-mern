@@ -1,4 +1,6 @@
 import { useAuth } from "../context/AuthContext";
+import api from "../api/axios";
+import { useState } from "react";
 
 export default function AddProducts() {
     const { user } = useAuth();
@@ -25,6 +27,13 @@ export default function AddProducts() {
         });
 
         alert("Product Created");
+
+        setForm({
+            name: "",
+            price: "",
+            quantity: "",
+            description: ""
+        })
     };
 
     return (

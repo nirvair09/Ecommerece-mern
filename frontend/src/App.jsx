@@ -13,14 +13,16 @@ export default function App() {
   if (loading) return <div>Loading...</div>;
 
   return (
+
     <Routes>
       <Route path="/" element={<Navigate to="/login" />} />
       <Route path="/login" element={!user ? <Login /> : <Navigate to="/dashboard" />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="login" />} />
+      <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
       <Route path="/products" element={<Products />} />
       <Route path="/add-product" element={<AddProducts />} />
       <Route path="/cart" element={user ? <Cart /> : <Navigate to="/login" />} />
     </Routes>
+
   );
 };
