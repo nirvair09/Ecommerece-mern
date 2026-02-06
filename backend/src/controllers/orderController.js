@@ -1,3 +1,7 @@
+import Cart from "../models/Cart";
+import Product from "../models/Product";
+import Order from "../models/Order";
+
 export const placeOrder = async (req, res) => {
     const cart = await Cart.findOne({ user: req.user._id }).populate(
         "items.products"
@@ -65,3 +69,10 @@ export const getMyOrders = async (req, res) => {
     });
 }
 
+export const getAllOrders = async (req, res) => {
+    const orders = await Order.find()
+        .populate("user", "name email")
+        .sort({ createdAt: -1 });
+
+    res.json(orders);
+};
