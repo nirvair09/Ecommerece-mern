@@ -22,7 +22,7 @@ export default function App() {
       <Route path="/products" element={<Products />} />
       <Route path="/add-product" element={<AddProducts />} />
       <Route path="/cart" element={user ? <Cart /> : <Navigate to="/login" />} />
+      <Route path="/orders" element={user ? <Orders /> : <Navigate to="/login" />} />
     </Routes>
-
   );
 };

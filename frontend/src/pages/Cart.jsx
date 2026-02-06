@@ -23,6 +23,21 @@ export default function Cart() {
         fetchCart();
     }, []);
 
+    const handleCheckOut = async () => {
+
+        const token = localStorage.getItem("token"); try {
+            const res = await api.post("/orders", {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            alert("Order Placed Successfully");
+            window.location.href = "/orders";
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     if (!cart) return <h3>Loading...</h3>
 
     return (
@@ -37,6 +52,8 @@ export default function Cart() {
                     <p>Quantity: {item.quantity}</p>
                 </div>
             ))}
+
+            <button onClick={handleCheckOut}>CheckOut</button>
         </div>
     );
 }
