@@ -5,6 +5,35 @@ export default function Orders() {
     const [orders, setOrders] = useState([]);
     const token = localStorage.getItem("token");
 
+    const handlePayment = async (orderId) => {
+        const token = localStorage.getItem("token");
+        const res = await api.post("/payment/create-order", { orderId }, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
+        const options = {
+            key: res.data.key,
+            amount: res.data.amount,
+            currency: "INR",
+            orderId: res.data.razorpayOrderId,
+            handler: async function (response) {
+                await api.post("/payment/verify",
+                    response,
+                    {
+                        headers: { Authorization: `Bearer ${token}` }
+                    }
+                );
+                alert("Payment successful");
+                window.location.reload();
+            },
+        }
+
+        const rzp = new window.Razorpay(options);
+        rzp.open();
+    };
+
+
+
     useEffect(() => {
         api
             .get("/orders/my", {
@@ -18,7 +47,7 @@ export default function Orders() {
             <h2>My Orders</h2>
 
             {orders.map((order) => (
-                <div key={order._id} style={{ border: "1px solid #ccc", margin: "10px" }}>
+                <div key={order._id}>
                     <p>Total: ₹{order.totalAmount}</p>
                     <p>Status: {order.status}</p>
 
@@ -27,6 +56,11 @@ export default function Orders() {
                             {item.name} × {item.quantity}
                         </div>
                     ))}
+                    {order.status === "placed" && (
+                        <button onClick={() => handlePayment(order._id)}>
+                            Pay Now
+                        </button>
+                    )}
                 </div>
             ))}
         </div>
