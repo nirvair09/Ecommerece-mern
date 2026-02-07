@@ -32,7 +32,14 @@ export default function Orders() {
         rzp.open();
     };
 
-
+    const handleCancel = async (orderId) => {
+        const token = localStorage.getItem("token");
+        await api.post("/orders/cancel", { orderId }, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        alert("Order cancelled successfully");
+        window.location.reload();
+    }
 
     useEffect(() => {
         api
@@ -57,9 +64,15 @@ export default function Orders() {
                         </div>
                     ))}
                     {order.status === "placed" && (
-                        <button onClick={() => handlePayment(order._id)}>
-                            Pay Now
-                        </button>
+                        <>
+                            <button onClick={() => handlePayment(order._id)}>
+                                Pay Now
+                            </button>
+
+                            <button onClick={() => handleCancel(order._id)}>
+                                Cancel Order
+                            </button>
+                        </>
                     )}
                 </div>
             ))}
