@@ -76,3 +76,51 @@ export const getAllOrders = async (req, res) => {
 
     res.json(orders);
 };
+
+
+export const cancelOrder = async (req, res) => {
+    const { orderId } = req.body;
+
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+        return res.status(404).json({ message: "Order not found" });
+    }
+
+    if (req.user.role === "customer") {
+        if (order.user.toString() !== req.user._id.toString()) {
+            return res.status(403).json({ message: "You are not authorized to cancel this order" });
+        }
+        if (order.status !== "placed") {
+            return res.status(403).json({ message: "Cannot cancel after payment or shipping" });
+        }
+    }
+
+
+    if (req.user.role === "seller") {
+        return res.status(403).json({ message: "Seller cannot cancel orders" });
+    }
+
+
+    if (order.status === "cancelled") {
+        return res.status(400).json({ message: "Order already cancelled" });
+    }
+
+
+    for (const item of order.items) {
+        const product = await Product.findById(item.productId);
+
+        if (product) {
+            product.quantity += item.quantity;
+            await product.save();
+        }
+    }
+
+
+    order.status = "Cancelled";
+    order.cancelledAt = Date.now();
+    await order.save();
+
+    res.json({ message: "Order cancelled successfully" });
+
+}

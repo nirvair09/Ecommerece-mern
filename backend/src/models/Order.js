@@ -30,8 +30,8 @@ const orderSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["pending", "shipped", "delivered", "cancelled"],
-        default: "pending"
+        enum: ["placed", "paid", "shipped", "delivered", "cancelled"],
+        default: "placed"
     },
     createdAt: {
         type: Date,
@@ -40,6 +40,9 @@ const orderSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
         default: Date.now
+    },
+    cancelledAt: {
+        type: Date,
     },
     paymentId: string,
     razorpayOrderId: string,
