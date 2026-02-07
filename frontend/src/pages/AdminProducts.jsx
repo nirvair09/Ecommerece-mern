@@ -1,21 +1,21 @@
 import { useState, useEffect } from "react";
 import api from "../api/axios";
-export default function AdminOrders() {
+export default function AdminProducts() {
 
-    const [orders, setOrders] = useState([]);
+    const [products, setProducts] = useState([]);
     const token = localStorage.getItem("token");
 
-    const fetchOrders = async () => {
-        const res = await api.get("/admin/orders", {
+    const fetchProducts = async () => {
+        const res = await api.get("/admin/products", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
-        setOrders(res.data);
+        setProducts(res.data);
     };
 
     useEffect(() => {
-        fetchOrders();
+        fetchProducts();
     }, []);
 
     const handleToggle = async (id) => {
@@ -25,18 +25,18 @@ export default function AdminOrders() {
             }
         });
         if (res.status == 200) {
-            fetchOrders();
+            fetchProducts();
         }
     }
 
 
     return (
         <div>
-            <h2>Orders</h2>
-            {orders.map(o => (
-                <div key={o._id}>
-                    {o.name}-{o.price}-{o.quantity}-{o.isApproved}
-                    <button onClick={() => handleToggle(o._id)}>
+            <h2>Products</h2>
+            {products.map(p => (
+                <div key={p._id}>
+                    {p.name}-{p.price}-{p.quantity}-{p.isApproved}
+                    <button onClick={() => handleToggle(p._id)}>
                         toggle
                     </button>
                 </div>

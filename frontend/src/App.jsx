@@ -9,6 +9,8 @@ import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
 import SellerOrders from "./pages/SellerOrders";
 import AdminOrders from "./pages/AdminOrders";
+import AdminProducts from "./pages/AdminProducts";
+import AdminUsers from "./pages/AdminUsers";
 export default function App() {
   const { user, loading } = useAuth();
 
@@ -33,6 +35,14 @@ export default function App() {
       <Route
         path="/admin/orders"
         element={user?.role === "admin" ? <AdminOrders /> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/admin/products"
+        element={user?.role === "admin" ? <AdminProducts /> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/admin/users"
+        element={user?.role === "admin" ? <AdminUsers /> : <Navigate to="/login" />}
       />
     </Routes>
   );
