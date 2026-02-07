@@ -25,6 +25,10 @@ const productSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
+    isApproved: {
+        type: Boolean,
+        default: false,
+    },
 }, {
     timestamps: true,
 });
