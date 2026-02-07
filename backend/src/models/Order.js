@@ -40,7 +40,9 @@ const orderSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    paymentId: string,
+    razorpayOrderId: string,
 });
 
 
