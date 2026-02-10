@@ -1,11 +1,11 @@
-import Orders from "../../../frontend/src/pages/Orders";
+import Order from "../models/Order.js";
 
-export const getSellerOders = async (req, res) => {
+export const getSellerOrders = async (req, res) => {
     const sellerId = req.user._id;
 
-    const orders = await Orders.find({
+    const orders = await Order.find({
         "items.seller": sellerId
-    }).populae * { createdAt: -1 };
+    }).sort({ createdAt: -1 });
 
     const filteredOrders = orders.map(
         order => {

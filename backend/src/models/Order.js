@@ -5,7 +5,7 @@ const orderItemSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product"
     },
-    name: string,
+    name: String,
     price: Number,
     quantity: Number,
     seller: {
@@ -44,8 +44,8 @@ const orderSchema = new mongoose.Schema({
     cancelledAt: {
         type: Date,
     },
-    paymentId: string,
-    razorpayOrderId: string,
+    paymentId: String,
+    razorpayOrderId: String,
 });
 
 

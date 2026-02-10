@@ -1,6 +1,6 @@
-import Cart from "../models/Cart";
-import Product from "../models/Product";
-import Order from "../models/Order";
+import Cart from "../models/Cart.js";
+import Product from "../models/Product.js";
+import Order from "../models/Order.js";
 
 export const placeOrder = async (req, res) => {
     const cart = await Cart.findOne({ user: req.user._id }).populate(

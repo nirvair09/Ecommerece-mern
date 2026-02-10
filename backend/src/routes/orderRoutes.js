@@ -1,10 +1,10 @@
 import express from "express";
-import { cancelOrder, getMyOrders, placeOrder } from "../controllers/orderController";
-import { protect } from "../middleware/authMiddleware";
+import { cancelOrder, getMyOrders, placeOrder } from "../controllers/orderController.js";
+import { protect } from "../middleware/authMiddleware.js";
 
-const route = express.Router();
+const router = express.Router();
 
-route.post("/", protect, placeOrder);
+router.post("/", protect, placeOrder);
 router.get("/my", protect, getMyOrders);
-router.port("/cancel", protect, cancelOrder)
-export default route;
+router.post("/cancel", protect, cancelOrder);
+export default router;

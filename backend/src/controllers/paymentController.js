@@ -1,9 +1,15 @@
 
 
-const razorpay = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET
-});
+import Order from "../models/Order.js";
+import Razorpay from "razorpay";
+import crypto from "crypto";
+
+const getRazorpay = () => {
+    return new Razorpay({
+        key_id: process.env.RAZORPAY_KEY_ID,
+        key_secret: process.env.RAZORPAY_KEY_SECRET
+    });
+};
 
 export const createOrder = async (req, res) => {
     const { orderId } = req.body;
@@ -20,7 +26,7 @@ export const createOrder = async (req, res) => {
         receipt: order._id.toString(),
     }
 
-    const razorpayOrder = await razorpay.orders.create(options);
+    const razorpayOrder = await getRazorpay().orders.create(options);
 
     order.razorpayOrderId = razorpayOrder.id;
     await order.save();
@@ -44,11 +50,11 @@ export const verifyPayment = async (req, res) => {
         .update(razorpay_order_id + "|" + razorpay_payment_id)
         .digest("hex");
 
-    if (generatedSignature !== razorpay_signature) {
+    if (generateSignature !== razorpay_signature) {
         return res.status(400).json({ message: "Payment verification failed" });
     }
 
-    const order = await Order.findOne({ razorpayOrder: razorpay_order_id });
+    const order = await Order.findOne({ razorpayOrderId: razorpay_order_id });
 
     if (!order) {
         return res.status(404).json({ message: "Order not found" });
