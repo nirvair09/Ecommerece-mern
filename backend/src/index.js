@@ -24,7 +24,7 @@ app.use("/seller", sellerRoutes);
 app.use("/admin", adminRoutes);
 app.use("/payment", paymentRoutes)
 
-app.get("/", (req, res) => {
+app.get("/health", (req, res) => {
     res.send("API Running...");
 });
 

@@ -12,7 +12,7 @@ const getOrCreateCart = async (userId) => {
 
 export const getCart = async (req, res) => {
 
-    const cart = await getOrCreateCart(req.user_id);
+    const cart = await getOrCreateCart(req.user._id);
     await cart.populate("items.product");
     res.json(cart);
 };
@@ -32,7 +32,7 @@ export const addToCart = async (req, res) => {
     const cart = await getOrCreateCart(req.user._id);
 
     const itemIndex = cart.items.findIndex(
-        (i) => i.product.toString() === productId
+        (i) => i.product._id.toString() === productId
     );
 
     if (itemIndex > -1) {
@@ -64,17 +64,17 @@ export const updateCartItem = async (req, res) => {
         return res.status(400).json({ message: "Invalid Stock" });
     }
 
-    const cart = await getOrCreateCart(req.user_id);
+    const cart = await getOrCreateCart(req.user._id);
 
     const itemIndex = cart.items.findIndex(
-        (i) => i.product.toString() === productId
+        (i) => i.product._id.toString() === productId
     );
 
-    if (!itemIndex) {
+    if (itemIndex === -1) {
         return res.status(400).json({ message: "Item not in cart" });
     }
 
-    item.quantity = quantity;
+    cart.items[itemIndex].quantity = quantity;
     await cart.save();
     await cart.populate("items.product");
     res.json(cart);
@@ -83,10 +83,10 @@ export const updateCartItem = async (req, res) => {
 export const removeFromCart = async (req, res) => {
     const { productId } = req.params;
 
-    const cart = await getOrCreateCart(req.user_id);
+    const cart = await getOrCreateCart(req.user._id);
 
     cart.items = cart.items.filter(
-        (i) => i.product.toString() !== productId
+        (i) => i.product._id.toString() !== productId
     );
 
     await cart.save();
